@@ -1,3 +1,7 @@
+// Copyright (c) 2014 Aaron Lenoir
+//
+// See the file LICENSE.txt for copying permission.
+
 /**
  * Experimental small library to do BASIC tracking with piwik. 
  * It lacks many of the features the standard piwik javascript client provides.
