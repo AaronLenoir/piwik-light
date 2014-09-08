@@ -3,7 +3,7 @@ piwik-light
 
 Basic piwik analytics client, with minimal functionality.
 
-For a more complete piwik client, use the standard client from http://piwik.org.
+For a more complete piwik client, use the standard client from https://piwik.org.
 
 It can send the following information to the piwik server (via GET):
 
