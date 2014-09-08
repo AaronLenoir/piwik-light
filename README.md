@@ -25,6 +25,7 @@ Put the piwik-light somewhere on your site. At the bottom of the page put
 the following javascript.
 
 ```javascript
+<script>
     (function () {
         var siteid = 1,
             host = 'yourwebsite.com',
