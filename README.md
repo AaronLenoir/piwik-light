@@ -16,8 +16,6 @@ And of course, all the standard stuff the browser sends anyway.
 
 It won't send anything if the do not track flag is set in the user's browser.
 
-For a more complete piwik client, use the standard client from http://piwik.org.
-
 Usage
 =====
 
