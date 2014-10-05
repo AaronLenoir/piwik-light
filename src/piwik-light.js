@@ -121,6 +121,19 @@
         },
 
         /**
+         * Get's the title of the current page
+         * returns: the title, of undefined is no title was found..
+         */
+        getCurrentTitle = function() {
+            var titleTag = window.document.getElementsByTagName('title');
+            if (titleTag.length > 0) {
+                return titleTag[0].innerHTML;
+            } else {
+                return undefined;
+            }
+        },
+
+        /**
          * Based on the parameters, builds a querystring for the tracking request.
          */
         buildQueryString = function (params) {
@@ -160,6 +173,37 @@
         },
 
         /**
+         * Builds up the set of parameters to pass to the piwik API
+         * idsite: the id of the site
+         * options: the main set of piwik-light options
+         * returns: an object with all parameters.
+         */
+        buildParameters = function (idsite, options) {
+            var params = {}, action;
+
+            /* Mandatory */
+            params.idsite = idsite;
+            params.rec = 1; // Always set to one ..
+            params.url = getCurrentUrl();
+            
+            /* Recommended */
+            action = getCurrentTitle();
+            if (action !== undefined) { 
+                params.action_name = action;
+            }
+            params._id = getVisitorID();
+            params.rand = Math.floor((Math.random() * 4294967295) + 1);
+            params.apiv = 1;          
+ 
+            /* Optional */ 
+            if (options.sendReferrer && document.referrer !== '') {
+                params.urlref = document.referrer;
+            }
+
+            return params;
+        },
+
+        /**
          * Public Functions
          */
 
@@ -175,7 +219,7 @@
          *          in that case though.
          */
         track = function (idsite, host, options) {
-            var url, params = {}, doNotTrack;
+            var url, params, doNotTrack;
 
             // Check input
             if (!idsite || idsite !== parseInt(idsite, 10)) {
@@ -201,17 +245,8 @@
                 return;
             }
 
-            /* Set the query string parameters */
-            params.idsite = idsite;
-            params.rec = 1; // Always set to one ...
-            params.url = getCurrentUrl();
-
-            if (options.sendReferrer && document.referrer !== '') {
-                params.urlref = document.referrer;
-            }
-
-            params._id = getVisitorID();
-            params.rand = Math.floor((Math.random() * 4294967295) + 1);
+            /* Setting all piwik parameters */
+            params = buildParameters(idsite, options);
 
             /* Get the URL of the target piwik.php */
             url = buildUrl(host, options);
