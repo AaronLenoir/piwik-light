@@ -9,6 +9,8 @@ It can send the following information to the piwik server (via GET):
 
 - The URL the user is on
 - The referrer
+- action_name
+- apiv (= piwik version, always 1)
 - A random "visitor id" that lasts for only the session, to identify unique
   visits.
 
